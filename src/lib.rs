@@ -43,6 +43,8 @@ impl TimerFuture {
             thread::sleep(duration);
             let mut shared_state = thread_shared_state.lock().unwrap();
 
+            shared_state.completed = true;
+
             if let Some(waker) = shared_state.waker.take() {
                 waker.wake()
             }
